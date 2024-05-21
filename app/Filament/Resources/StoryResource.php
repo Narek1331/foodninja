@@ -18,6 +18,7 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\Filter;
 use Carbon\Carbon;
 use App\Models\DisplayLocation;
+use Filament\Tables\Filters\SelectFilter;
 
 class StoryResource extends Resource
 {
@@ -25,12 +26,32 @@ class StoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Сторис';
+
+    protected static ?string $pluralLabel = 'Сторис';
+
     public static function form(Form $form): Form
     {
         return $form
         ->schema([
             Select::make('display_location_id')
-            ->options(DisplayLocation::all()->pluck('name', 'id'))
+            ->label('Заголовок')
+            ->required()
+            ->options(DisplayLocation::all()
+            ->pluck('name', 'id')),
+
+            Forms\Components\Select::make('status')
+                            ->label('Статус')
+                            ->options([
+                                '1' => 'Опубликовано',
+                                '0' => 'Черновик',
+                            ])
+                            ->required(),
+            Forms\Components\FileUpload::make('img_path')
+            ->directory('images')
+            ->label('Основное изображение')
+            ->maxSize(1024)
+            ->acceptedFileTypes(['image/*'])
 
         ]);
     }
@@ -38,17 +59,35 @@ class StoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->reorderable('order_by')
             ->columns([
                 TextColumn::make('displayLocation.name')
+                ->label('Заголовок')
                 ->searchable(),
+                Tables\Columns\ImageColumn::make('img_path')
+                    ->label('Основное изображение')
+                    ->size(150),
                 TextColumn::make('created_at')
+                ->label('Дата')
                 ->searchable()
             ])
             ->filters([
+                SelectFilter::make('status')
+                    ->label('Статус')
+                    ->options([
+                        '1' => 'Опубликовано',
+                        '0' => 'Черновик',
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if($data && isset($data['value'])){
+                            return $query->where('status', $data['value']);
+                        }
+                        return $query;
+                    }),
                 Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from')->label('From'),
-                        Forms\Components\DatePicker::make('created_until')->label('To'),
+                        Forms\Components\DatePicker::make('created_from')->label('От'),
+                        Forms\Components\DatePicker::make('created_until')->label('До'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -70,7 +109,9 @@ class StoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('order_by', 'asc');
+
     }
 
     public static function getRelations(): array

@@ -25,13 +25,18 @@ class BannerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Баннеры';
+
+    protected static ?string $pluralLabel = 'Баннеры';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Select::make('display_location_id')
                 ->options(DisplayLocation::all()->pluck('name', 'id'))
-
+                ->label('Заголовок')
             ]);
     }
 
@@ -40,15 +45,17 @@ class BannerResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('displayLocation.name')
+                ->label('Заголовок')
                 ->searchable(),
                 TextColumn::make('created_at')
+                ->label('Дата')
                 ->searchable()
             ])
             ->filters([
                 Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from')->label('From'),
-                        Forms\Components\DatePicker::make('created_until')->label('To'),
+                        Forms\Components\DatePicker::make('created_from')->label('От'),
+                        Forms\Components\DatePicker::make('created_until')->label('До'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -63,8 +70,8 @@ class BannerResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

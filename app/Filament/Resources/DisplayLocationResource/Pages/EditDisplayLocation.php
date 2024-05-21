@@ -16,4 +16,9 @@ class EditDisplayLocation extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string
+    {
+        return 'Редактировать места отображения';
+    }
 }

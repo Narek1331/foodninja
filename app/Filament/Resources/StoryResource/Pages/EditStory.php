@@ -18,4 +18,9 @@ class EditStory extends EditRecord
             Actions\RestoreAction::make(),
         ];
     }
+
+    public function getTitle(): string
+    {
+        return 'Редактирование';
+    }
 }

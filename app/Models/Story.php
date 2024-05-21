@@ -15,7 +15,10 @@ class Story extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'display_location_id'
+        'display_location_id',
+        'status',
+        'order_by',
+        'img_path'
     ];
 
     public function displayLocation(){

@@ -10,11 +10,17 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\CheckboxColumn;
+use Illuminate\Database\Eloquent\Model;
 
 class ImagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'images';
     protected static ?string $recordTitleAttribute = 'img_path';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return 'Настройки изображения';
+    }
 
     public function form(Form $form): Form
     {
@@ -23,26 +29,28 @@ class ImagesRelationManager extends RelationManager
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\Placeholder::make('recommended_sizes')
-                            ->label('Recommended image sizes:')
-                            ->content('PC: 1240x360 px, Mobile: 910x480 px')
+                            ->label('Рекомендуемые размеры изображений:')
+                            ->content('ПК: 1240x360 px, Мобильный: 910x480 px')
                             ->columnSpan('full'),
                         Forms\Components\FileUpload::make('img_path')
                             ->directory('images')
                             ->maxSize(1024)
                             ->acceptedFileTypes(['image/*'])
-                            ->requiredWithout('img_full_path'),
+                            ->requiredWithout('img_full_path')
+                            ->label('Загрузить изображение'),
                         TextInput::make('img_full_path')
-                        ->type('url')
-                        ->label('Set image URL')
-                        ->requiredWithout('img_path'),
+                            ->type('url')
+                            ->label('Установить URL изображения')
+                            ->requiredWithout('img_path'),
                         Forms\Components\Checkbox::make('new_window')
-                            ->label('Open in new window'),
+                            ->label('Открыть в новом окне'),
                         TextInput::make('autoscroll_seconds')
                             ->type('number')
-                            ->label('Autoscroll Seconds')
+                            ->label('Секунды автопрокрутки')
                             ->required(),
                     ])
-                    ->columns(1),
+                    ->columns(1)
+                    ->label('Настройки изображения'),
             ]);
     }
 
@@ -53,33 +61,32 @@ class ImagesRelationManager extends RelationManager
             ->recordTitleAttribute('img_path')
             ->columns([
                 Tables\Columns\ImageColumn::make('img_path')
-                    ->label('Image')
+                    ->label('Изображение')
                     ->size(150),
                 Tables\Columns\BooleanColumn::make('new_window')
-                    ->label('Open in New Window'),
+                    ->label('Открыть в новом окне'),
                 Tables\Columns\TextColumn::make('order_by')
-                    ->label('Order')
+                    ->label('Порядок')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                ->label('Date')
-                ->sortable(),
+                    ->label('Дата')
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('Add Image'),
+                Tables\Actions\CreateAction::make()->label('Добавить изображение'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Delete'),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
+                    Tables\Actions\DeleteBulkAction::make()->label('Удалить выбранное'),
                 ]),
             ])
             ->defaultSort('order_by', 'asc');
-
     }
 }

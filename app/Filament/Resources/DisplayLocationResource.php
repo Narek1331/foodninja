@@ -22,11 +22,19 @@ class DisplayLocationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Место отображения';
+
+    // protected static ?string $navigationGroup = 'Место отображения';
+
+    protected static ?string $pluralLabel = 'Места отображения';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name'),
+                TextInput::make('name')
+                ->label('Заголовок')
             ]);
     }
 
@@ -35,6 +43,7 @@ class DisplayLocationResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                ->label('Заголовок')
                 ->searchable()
 
             ])

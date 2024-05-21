@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateDisplayLocation extends CreateRecord
 {
     protected static string $resource = DisplayLocationResource::class;
+
+    public function getTitle(): string
+    {
+        return 'Создать места отображения';
+    }
 }

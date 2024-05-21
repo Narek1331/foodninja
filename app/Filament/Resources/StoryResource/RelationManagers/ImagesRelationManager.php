@@ -12,10 +12,16 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class ImagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'images';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return 'Настройки изображения';
+    }
 
     public function form(Form $form): Form
     {
@@ -24,32 +30,27 @@ class ImagesRelationManager extends RelationManager
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\Placeholder::make('recommended_sizes')
-                            ->label('Recommended image sizes:')
+                            ->label('Рекомендуемые размеры изображений:')
                             ->content('450x800')
                             ->columnSpan('full'),
                         Forms\Components\FileUpload::make('img_path')
+                            ->label('Изображение')
                             ->directory('images')
                             ->maxSize(1024)
                             ->acceptedFileTypes(['image/*'])
                             ->requiredWithout('youtube_video_url'),
                         TextInput::make('youtube_video_url')
+                            ->label('Изображение')
                             ->type('url')
-                            ->label('YouTube Video URL')
+                            ->label('Ссылка на видео на ютубе')
                             ->requiredWithout('img_path'),
                         Forms\Components\Checkbox::make('show_description')
-                            ->label('Add description')
+                            ->label('Добавить описание')
                             ->reactive(),
                         TextInput::make('description')
                             ->type('text')
-                            ->label('Description')
+                            ->label('Описание')
                             ->visible(fn ($get) => $get('show_description')),
-                        Forms\Components\Select::make('status')
-                            ->label('Status')
-                            ->options([
-                                '1' => 'Опубликовано',
-                                '0' => 'Черновик',
-                            ])
-                            ->required(),
                     ])
                     ->columns(1),
             ]);
@@ -62,32 +63,20 @@ class ImagesRelationManager extends RelationManager
             ->recordTitleAttribute('img_path')
             ->columns([
                 Tables\Columns\ImageColumn::make('img_path')
-                    ->label('Image')
+                    ->label('Изображение')
                     ->size(150),
                 Tables\Columns\TextColumn::make('youtube_video_url')
-                    ->label('YouTube Video URL'),
+                    ->label('Ссылка на видео на ютубе'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Date')
+                    ->label('Дата')
                     ->sortable(),
-                CheckboxColumn::make('status')
-                    ->label('Status'),
+
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->label('Status')
-                    ->options([
-                        '1' => 'Опубликовано',
-                        '0' => 'Черновик',
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        if($data && isset($data['value'])){
-                            return $query->where('status', $data['value']);
-                        }
-                        return $query;
-                    }),
+
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('Add Image'),
+                Tables\Actions\CreateAction::make()->label('Добавить изображение'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Edit'),
