@@ -16,6 +16,7 @@ class Story extends Model
      */
     protected $fillable = [
         'display_location_id',
+        'name',
         'status',
         'order_by',
         'img_path'

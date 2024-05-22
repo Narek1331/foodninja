@@ -74,8 +74,6 @@ class ImagesRelationManager extends RelationManager
                     ->size(150),
                 Tables\Columns\TextColumn::make('youtube_video_url')
                     ->label('Ссылка на видео на ютубе'),
-                Tables\Columns\TextColumn::make('title')
-                    ->label('Заголовок'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата')
                     ->sortable(),

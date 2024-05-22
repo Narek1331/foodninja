@@ -34,12 +34,14 @@ class StoryResource extends Resource
     {
         return $form
         ->schema([
+            TextInput::make('name')
+                ->label('Название сторис')
+                ->required(),
             Select::make('display_location_id')
-            ->label('Канал отображения')
-            ->required()
-            ->options(DisplayLocation::all()
-            ->pluck('name', 'id')),
-
+                ->label('Канал отображения')
+                ->required()
+                ->options(DisplayLocation::all()
+                ->pluck('name', 'id')),
             Forms\Components\Select::make('status')
                             ->label('Статус')
                             ->options([
