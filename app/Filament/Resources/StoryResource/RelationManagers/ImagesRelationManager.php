@@ -44,9 +44,16 @@ class ImagesRelationManager extends RelationManager
                             ->type('url')
                             ->label('Ссылка на видео на ютубе')
                             ->requiredWithout('img_path'),
+                        TextInput::make('img_full_path')
+                            ->type('text')
+                            ->label('Ссылка'),
                         Forms\Components\Checkbox::make('show_description')
                             ->label('Добавить описание')
                             ->reactive(),
+                        TextInput::make('title')
+                            ->type('text')
+                            ->label('Заголовок')
+                            ->visible(fn ($get) => $get('show_description')),
                         TextInput::make('description')
                             ->type('text')
                             ->label('Описание')
@@ -67,6 +74,8 @@ class ImagesRelationManager extends RelationManager
                     ->size(150),
                 Tables\Columns\TextColumn::make('youtube_video_url')
                     ->label('Ссылка на видео на ютубе'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Заголовок'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата')
                     ->sortable(),
@@ -79,13 +88,13 @@ class ImagesRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make()->label('Добавить изображение'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Delete'),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
-                    Tables\Actions\ForceDeleteBulkAction::make()->label('Delete Forever'),
+                    Tables\Actions\DeleteBulkAction::make()->label('Удалить выбранное'),
+                    // Tables\Actions\ForceDeleteBulkAction::make()->label('Удалить навсегда'),
                 ]),
             ])
             ->defaultSort('order_by', 'asc');

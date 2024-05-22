@@ -19,6 +19,8 @@ class EditDisplayLocation extends EditRecord
 
     public function getTitle(): string
     {
-        return 'Редактировать места отображения';
+        $displayLocationName = $this->record->name ?? '';
+
+        return $displayLocationName ? 'Редактировать места отображения ' . $displayLocationName : 'Редактировать места отображения';
     }
 }

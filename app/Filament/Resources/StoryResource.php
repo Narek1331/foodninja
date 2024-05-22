@@ -35,7 +35,7 @@ class StoryResource extends Resource
         return $form
         ->schema([
             Select::make('display_location_id')
-            ->label('Заголовок')
+            ->label('Канал отображения')
             ->required()
             ->options(DisplayLocation::all()
             ->pluck('name', 'id')),
@@ -62,7 +62,7 @@ class StoryResource extends Resource
             ->reorderable('order_by')
             ->columns([
                 TextColumn::make('displayLocation.name')
-                ->label('Заголовок')
+                ->label('Канал отображения')
                 ->searchable(),
                 Tables\Columns\ImageColumn::make('img_path')
                     ->label('Основное изображение')

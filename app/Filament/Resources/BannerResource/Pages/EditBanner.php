@@ -19,6 +19,8 @@ class EditBanner extends EditRecord
 
     public function getTitle(): string
     {
-        return 'Редактирование';
+        $displayLocationName = $this->record->displayLocation->name ?? '';
+
+        return $displayLocationName ? 'Редактирование ' . $displayLocationName : 'Редактирование';
     }
 }

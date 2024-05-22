@@ -15,8 +15,10 @@ class StoryImage extends Model
         'order_by',
         'img_path',
         'youtube_video_url',
+        'img_full_path',
         'description',
-        'status'
+        'status',
+        'title'
     ];
 
     public function story()

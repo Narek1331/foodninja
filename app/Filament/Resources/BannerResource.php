@@ -36,7 +36,7 @@ class BannerResource extends Resource
             ->schema([
                 Select::make('display_location_id')
                 ->options(DisplayLocation::all()->pluck('name', 'id'))
-                ->label('Заголовок')
+                ->label('Канал отображения')
             ]);
     }
 
@@ -45,7 +45,7 @@ class BannerResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('displayLocation.name')
-                ->label('Заголовок')
+                ->label('Канал отображения')
                 ->searchable(),
                 TextColumn::make('created_at')
                 ->label('Дата')
