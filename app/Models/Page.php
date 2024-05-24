@@ -7,27 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasMerchantId;
 use App\Models\Scopes\MerchantScope;
 
-class Banner extends Model
+class Page extends Model
 {
     use HasFactory, HasMerchantId;
 
-    /**
+     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'display_location_id',
+        'title',
+        'text',
+        'status',
         'merchant_id'
     ];
-
-    public function displayLocation(){
-        return $this->belongsTo(DisplayLocation::class);
-    }
-
-    public function images(){
-        return $this->hasMany(BannerImage::class);
-    }
 
     protected static function booted()
     {

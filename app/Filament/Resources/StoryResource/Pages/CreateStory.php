@@ -12,7 +12,7 @@ class CreateStory extends CreateRecord
 
     public function getTitle(): string
     {
-        return 'Создать';
+        return 'Создать Инф. блок';
     }
 
 }

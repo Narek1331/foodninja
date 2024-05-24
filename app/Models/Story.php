@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasMerchantId;
+use App\Models\Scopes\MerchantScope;
 
 class Story extends Model
 {
@@ -30,6 +31,11 @@ class Story extends Model
 
     public function images(){
         return $this->hasMany(StoryImage::class);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new MerchantScope);
     }
 
 }

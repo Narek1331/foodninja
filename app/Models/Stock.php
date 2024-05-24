@@ -7,30 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasMerchantId;
 use App\Models\Scopes\MerchantScope;
 
-class Banner extends Model
+class Stock extends Model
 {
     use HasFactory, HasMerchantId;
 
-    /**
+     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
         'display_location_id',
-        'merchant_id'
+        'merchant_id',
+        'title',
+        'text',
+        'img_path',
+        'status',
+        'promo_code'
     ];
-
-    public function displayLocation(){
-        return $this->belongsTo(DisplayLocation::class);
-    }
-
-    public function images(){
-        return $this->hasMany(BannerImage::class);
-    }
 
     protected static function booted()
     {
         static::addGlobalScope(new MerchantScope);
     }
+
+    public function displayLocation(){
+        return $this->belongsTo(DisplayLocation::class);
+    }
+
 }

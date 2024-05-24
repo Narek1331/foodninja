@@ -27,6 +27,8 @@ class BannerResource extends Resource
 
     protected static ?string $navigationLabel = 'Баннеры';
 
+    protected static ?string $navigationGroup = 'Контент';
+
     protected static ?string $pluralLabel = 'Баннеры';
 
 

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StoryResource\Pages;
-use App\Filament\Resources\StoryResource\RelationManagers;
-use App\Models\Story;
+use App\Filament\Resources\StockResource\Pages;
+use App\Filament\Resources\StockResource\RelationManagers;
+use App\Models\Stock;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,55 +19,63 @@ use Filament\Tables\Filters\Filter;
 use Carbon\Carbon;
 use App\Models\DisplayLocation;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\RichEditor;
 
-class StoryResource extends Resource
+class StockResource extends Resource
 {
-    protected static ?string $model = Story::class;
+    protected static ?string $model = Stock::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Сторис';
+    protected static ?string $navigationLabel = 'Акции';
 
     protected static ?string $navigationGroup = 'Контент';
 
-    protected static ?string $pluralLabel = 'Сторис';
+    protected static ?string $pluralLabel = 'Акции';
 
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            TextInput::make('name')
-                ->label('Название сторис')
-                ->required(),
-            Select::make('display_location_id')
-                ->label('Канал отображения')
-                ->required()
-                ->options(DisplayLocation::all()
-                ->pluck('name', 'id')),
-            Forms\Components\Select::make('status')
-                            ->label('Статус')
-                            ->options([
-                                '1' => 'Опубликовано',
-                                '0' => 'Черновик',
-                            ])
-                            ->required(),
-            Forms\Components\FileUpload::make('img_path')
-            ->directory('images')
-            ->label('Основное изображение')
-            ->maxSize(1024)
-            ->acceptedFileTypes(['image/*'])
+            ->schema([
+                TextInput::make('title')
+                    ->label('Заголовок')
+                    ->required(),
+                Select::make('display_location_id')
+                    ->label('Канал отображения')
+                    ->required()
+                    ->options(DisplayLocation::all()
+                    ->pluck('name', 'id')),
+                RichEditor::make('text')
+                    ->label('Текст')
+                    ->columnSpan('full'),
+                TextInput::make('promo_code')
+                    ->label('Промокод')
+                    ->required(),
+                Forms\Components\Select::make('status')
+                    ->label('Статус')
+                    ->options([
+                        '1' => 'Опубликовано',
+                        '0' => 'Черновик',
+                    ]),
+                Forms\Components\FileUpload::make('img_path')
+                    ->directory('images')
+                    ->label('Изображение')
+                    ->maxSize(1024)
+                    ->acceptedFileTypes(['image/*'])
 
-        ]);
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->reorderable('order_by')
             ->columns([
+                TextColumn::make('title')
+                    ->label('Заголовок')
+                    ->searchable(),
                 TextColumn::make('displayLocation.name')
-                ->label('Канал отображения')
-                ->searchable(),
+                    ->label('Канал отображения')
+                    ->searchable(),
                 Tables\Columns\ImageColumn::make('img_path')
                     ->label('Основное изображение')
                     ->size(150),
@@ -114,23 +122,23 @@ class StoryResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('order_by', 'asc');
+            ->defaultSort('created_at', 'asc');
 
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ImagesRelationManager::class,
+            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStories::route('/'),
-            'create' => Pages\CreateStory::route('/create'),
-            'edit' => Pages\EditStory::route('/{record}/edit'),
+            'index' => Pages\ListStocks::route('/'),
+            'create' => Pages\CreateStock::route('/create'),
+            'edit' => Pages\EditStock::route('/{record}/edit'),
         ];
     }
 }
