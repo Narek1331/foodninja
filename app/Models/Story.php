@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasMerchantId;
 
 class Story extends Model
 {
-    use HasFactory;
+    use HasFactory, HasMerchantId;
 
      /**
      * The attributes that are mass assignable.
@@ -19,7 +20,8 @@ class Story extends Model
         'name',
         'status',
         'order_by',
-        'img_path'
+        'img_path',
+        'merchant_id'
     ];
 
     public function displayLocation(){
@@ -29,4 +31,5 @@ class Story extends Model
     public function images(){
         return $this->hasMany(StoryImage::class);
     }
+
 }

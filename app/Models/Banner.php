@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasMerchantId;
 
 class Banner extends Model
 {
-    use HasFactory;
+    use HasFactory, HasMerchantId;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,8 @@ class Banner extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'display_location_id'
+        'display_location_id',
+        'merchant_id'
     ];
 
     public function displayLocation(){
