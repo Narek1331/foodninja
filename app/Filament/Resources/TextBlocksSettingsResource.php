@@ -30,24 +30,19 @@ class TextBlocksSettingsResource extends Resource
             ->schema([
                 RichEditor::make('mobile_install_text')
                 ->label('Текст предлагающий установить мобильное приложение')
-                ->columnSpan('full')
-                ->required(),
+                ->columnSpan('full'),
                 RichEditor::make('cart_hint')
                 ->label('Подсказка в корзине')
-                ->columnSpan('full')
-                ->required(),
+                ->columnSpan('full'),
                 RichEditor::make('hint_choosing_delivery')
                 ->label('Подсказка при выборе доставки')
-                ->columnSpan('full')
-                ->required(),
+                ->columnSpan('full'),
                 RichEditor::make('pre_order_hint')
                 ->label('Подсказка для предзаказов')
-                ->columnSpan('full')
-                ->required(),
+                ->columnSpan('full'),
                 RichEditor::make('site_footer_text')
                 ->label('Текст в подвале сайта')
                 ->columnSpan('full')
-                ->required(),
             ]);
     }
 

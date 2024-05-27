@@ -5,6 +5,7 @@ namespace App\Filament\Resources\TextBlocksSettingsResource\Pages;
 use App\Filament\Resources\TextBlocksSettingsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Pages\Actions\ButtonAction;
 
 class EditTextBlocksSettings extends EditRecord
 {
@@ -13,12 +14,26 @@ class EditTextBlocksSettings extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            // Actions\DeleteAction::make(),
         ];
     }
 
     public function getTitle(): string
     {
-        return 'Редактирование Инф. блок';
+        return 'Инф. Блоки';
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            ButtonAction::make('save')
+                ->label('Сохранить')
+                ->action('save'),
+        ];
     }
 }

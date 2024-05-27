@@ -17,10 +17,17 @@ return new class extends Migration
             $table->boolean('display_app_download_widget')->default(false);
             $table->boolean('display_popup_app_download_widget')->default(false);
             $table->boolean('turn_on')->default(false);
-            $table->boolean('show_only_auth_users')->default(false);
-            $table->integer('how_long_display')->default(60);
-            $table->string('yes_button_text')->default('Да');
-            $table->string('cancel_button_text')->default('Нет');
+            $table->boolean('show_only_auth_users')
+            ->default(false);
+            $table->integer('how_long_display')
+            ->nullable()
+            ->default(60);
+            $table->string('yes_button_text')
+            ->nullable()
+            ->default('Да');
+            $table->string('cancel_button_text')
+            ->nullable()
+            ->default('Нет');
             $table->string('link_when_click_yes')->nullable();
             $table->string('heading')->nullable();
             $table->text('text_in_popup_window')->nullable();

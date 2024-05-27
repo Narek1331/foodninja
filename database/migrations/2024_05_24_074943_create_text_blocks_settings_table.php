@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('text_blocks_settings', function (Blueprint $table) {
             $table->id();
             $table->string('merchant_id');
-            $table->longText('mobile_install_text');
-            $table->longText('cart_hint');
-            $table->longText('hint_choosing_delivery');
-            $table->longText('pre_order_hint');
-            $table->longText('site_footer_text');
+            $table->longText('mobile_install_text')->nullable();
+            $table->longText('cart_hint')->nullable();
+            $table->longText('hint_choosing_delivery')->nullable();
+            $table->longText('pre_order_hint')->nullable();
+            $table->longText('site_footer_text')->nullable();
             $table->timestamps();
         });
     }
