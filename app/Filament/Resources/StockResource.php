@@ -60,6 +60,10 @@ class StockResource extends Resource
                 Forms\Components\FileUpload::make('img_path')
                     ->directory('images')
                     ->label('Изображение')
+                    ->directory(function () {
+                        $merchantId = auth()->user()->merchantId();
+                        return "{$merchantId}/stock";
+                    })
                     ->maxSize(1024)
                     ->acceptedFileTypes(['image/*'])
 

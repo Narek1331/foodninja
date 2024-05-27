@@ -52,7 +52,10 @@ class StoryResource extends Resource
                             ])
                             ->required(),
             Forms\Components\FileUpload::make('img_path')
-            ->directory('images')
+            ->directory(function () {
+                $merchantId = auth()->user()->merchantId();
+                return "{$merchantId}/story";
+            })
             ->label('Основное изображение')
             ->maxSize(1024)
             ->acceptedFileTypes(['image/*'])

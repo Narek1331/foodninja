@@ -33,7 +33,10 @@ class ImagesRelationManager extends RelationManager
                             ->content('ПК: 1240x360 px, Мобильный: 910x480 px')
                             ->columnSpan('full'),
                         Forms\Components\FileUpload::make('img_path')
-                            ->directory('images')
+                            ->directory(function () {
+                                $merchantId = auth()->user()->merchantId();
+                                return "{$merchantId}/banner";
+                            })
                             ->maxSize(1024)
                             ->acceptedFileTypes(['image/*'])
                             ->requiredWithout('img_full_path')

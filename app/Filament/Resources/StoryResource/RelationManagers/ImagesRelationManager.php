@@ -35,7 +35,10 @@ class ImagesRelationManager extends RelationManager
                             ->columnSpan('full'),
                         Forms\Components\FileUpload::make('img_path')
                             ->label('Изображение')
-                            ->directory('images')
+                            ->directory(function () {
+                                $merchantId = auth()->user()->merchantId();
+                                return "{$merchantId}/story";
+                            })
                             ->maxSize(1024)
                             ->acceptedFileTypes(['image/*'])
                             ->requiredWithout('youtube_video_url'),
