@@ -15,7 +15,7 @@ class WidgetsSettingResource extends Resource
 {
     protected static ?string $model = WidgetsSetting::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
     protected static ?string $navigationLabel = 'Виджеты';
 

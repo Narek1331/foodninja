@@ -27,7 +27,7 @@ class DesignSettingResource extends Resource
 {
     protected static ?string $model = DesignSetting::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
     protected static ?string $navigationLabel = 'Дизайн';
 

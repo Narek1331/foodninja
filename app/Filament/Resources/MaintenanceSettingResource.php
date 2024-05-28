@@ -25,7 +25,7 @@ class MaintenanceSettingResource extends Resource
 {
     protected static ?string $model = MaintenanceSetting::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-no-symbol';
 
     protected static ?string $navigationLabel = 'Отключить платформу';
 

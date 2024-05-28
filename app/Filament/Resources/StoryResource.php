@@ -24,7 +24,7 @@ class StoryResource extends Resource
 {
     protected static ?string $model = Story::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-camera';
 
     protected static ?string $navigationLabel = 'Сторис';
 

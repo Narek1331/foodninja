@@ -17,7 +17,7 @@ class MenuSettingResource extends Resource
 {
     protected static ?string $model = MenuSetting::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-3';
 
     protected static ?string $navigationLabel = 'Меню';
 
@@ -63,4 +63,5 @@ class MenuSettingResource extends Resource
             'edit' => Pages\EditMenuSetting::route('/{record}/edit'),
         ];
     }
+
 }
