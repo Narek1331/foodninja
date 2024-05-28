@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DisplayLocationSeeder::class,
             MaintenanceSettingModeSeeder::class,
-            DesignSettingParamSeeder::class
+            DesignSettingParamSeeder::class,
+            MenuSettingSeeder::class
             // BannerSeeder::class,
             // StorySeeder::class,
         ]);
