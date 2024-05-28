@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             DisplayLocationSeeder::class,
-            MaintenanceSettingModeSeeder::class
+            MaintenanceSettingModeSeeder::class,
+            DesignSettingParamSeeder::class
             // BannerSeeder::class,
             // StorySeeder::class,
         ]);
