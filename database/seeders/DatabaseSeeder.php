@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
             DisplayLocationSeeder::class,
             MaintenanceSettingModeSeeder::class,
             DesignSettingParamSeeder::class,
-            MenuSettingSeeder::class
+            MenuSettingSeeder::class,
+            DaySeeder::class,
+            DiscountTypeSeeder::class,
+            DeliveryTypeSeeder::class,
             // BannerSeeder::class,
             // StorySeeder::class,
         ]);
